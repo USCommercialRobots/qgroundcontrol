@@ -48,6 +48,9 @@
 #include "CustomCommandWidget.h"
 #include "QGCDockWidget.h"
 #include "HILDockWidget.h"
+#include "Parameters.h"
+#include "Video.h"
+#include "Planner.h"
 #include "AppMessages.h"
 #endif
 
@@ -68,7 +71,10 @@ enum DockWidgetTypes {
     CUSTOM_COMMAND,
     ONBOARD_FILES,
     HIL_CONFIG,
-    ANALYZE
+    ANALYZE,
+    PARAMETERS,
+    VIDEO,
+    PLANNER
 };
 
 static const char *rgDockWidgetNames[] = {
@@ -76,7 +82,10 @@ static const char *rgDockWidgetNames[] = {
     "Custom Command",
     "Onboard Files",
     "HIL Config",
-    "Analyze"
+    "Analyze",
+    "Parameters",
+    "Video",
+    "Planner"
 };
 
 #define ARRAY_SIZE(ARRAY) (sizeof(ARRAY) / sizeof(ARRAY[0]))
@@ -292,6 +301,13 @@ void MainWindow::_buildCommonWidgets(void)
         _ui.menuWidgets->addAction(action);
         _mapName2Action[pDockWidgetName] = action;
     }
+
+    // Populate tools menu
+    QAction* action = new QAction("Show Tools", this);
+    action->setCheckable(true);
+    connect(action, &QAction::triggered, this, &MainWindow::startWidgets);
+    _ui.menuTools->addAction(action);
+    _mapName2Action["Show Tools"] = action;
 }
 
 /// Shows or hides the specified dock widget, creating if necessary
@@ -316,6 +332,7 @@ void MainWindow::_showDockWidget(const QString& name, bool show)
 bool MainWindow::_createInnerDockWidget(const QString& widgetName)
 {
     QGCDockWidget* widget = NULL;
+
     QAction *action = _mapName2Action[widgetName];
     if(action) {
         switch(action->data().toInt()) {
@@ -334,13 +351,48 @@ bool MainWindow::_createInnerDockWidget(const QString& widgetName)
             case ANALYZE:
                 widget = new Linecharts(widgetName, action, _mavLinkDecoderInstance(), this);
                 break;
+            case PARAMETERS:
+                widget = new Parameters(widgetName, action, this);
+                break;
+            case VIDEO:
+                widget = new Video(widgetName, action, this);
+                break;
+            case PLANNER:
+                widget = new Planner(widgetName, action, this);
+                break;
         }
+
         if(widget) {
             _mapName2DockWidget[widgetName] = widget;
         }
     }
     return widget != NULL;
 }
+
+/// Starts additional widgets
+void MainWindow::startWidgets()
+{
+    qDebug() << "--- starto ";
+    _showDockWidget("Parameters", true);
+    _showDockWidget("Video", true);
+    _showDockWidget("Planner", true);
+//    const QString& name = "Analyze";
+//    bool show = true;
+//    // Create the inner widget if we need to
+//    if (!_mapName2DockWidget.contains(name)) {
+//        if(!_createInnerDockWidget(name)) {
+//            qWarning() << "Trying to load non existent widget:" << name;
+//            return;
+//        }
+//    }
+//    Q_ASSERT(_mapName2DockWidget.contains(name));
+//    QGCDockWidget* dockWidget = _mapName2DockWidget[name];
+//    Q_ASSERT(dockWidget);
+//    dockWidget->setVisible(show);
+//    Q_ASSERT(_mapName2Action.contains(name));
+//    _mapName2Action[name]->setChecked(show);
+}
+
 
 void MainWindow::_hideAllDockWidgets(void)
 {
@@ -518,6 +570,7 @@ void MainWindow::_showAdvancedUIChanged(bool advanced)
     if (advanced) {
         menuBar()->addMenu(_ui.menuFile);
         menuBar()->addMenu(_ui.menuWidgets);
+        menuBar()->addMenu(_ui.menuTools);
     } else {
         menuBar()->clear();
     }

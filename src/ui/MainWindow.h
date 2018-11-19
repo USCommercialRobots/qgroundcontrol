@@ -89,6 +89,8 @@ public slots:
     /** @brief Update the window name */
     void configureWindowName();
 
+    void startWidgets();
+
 protected slots:
     /**
      * @brief Enable/Disable Status Bar
