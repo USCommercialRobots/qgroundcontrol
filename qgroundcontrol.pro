@@ -379,9 +379,9 @@ INCLUDEPATH += \
 FORMS += \
     src/ui/MainWindow.ui \
     src/QGCQmlWidgetHolder.ui \
-    src/ui/ParametersConfiguration.ui \
-    src/ui/VideoConfiguration.ui \
-    src/ui/PlannerConfiguration.ui
+    src/ui/Video.ui \
+    src/ui/Planner.ui \
+    src/ui/Parameters.ui
 
 !MobileBuild {
 FORMS += \
@@ -410,11 +410,8 @@ HEADERS += \
     src/api/QmlComponentInfo.h \
     src/comm/MavlinkMessagesTimer.h \
     src/ui/Parameters.h \
-    src/ui/ParametersConfiguration.h \
     src/ui/Video.h \
-    src/ui/VideoConfiguration.h \
     src/ui/Planner.h \
-    src/ui/PlannerConfiguration.h
 
 SOURCES += \
     src/api/QGCCorePlugin.cc \
@@ -423,11 +420,8 @@ SOURCES += \
     src/api/QmlComponentInfo.cc \
     src/comm/MavlinkMessagesTimer.cc \
     src/ui/Parameters.cc \
-    src/ui/ParametersConfiguration.cc \
     src/ui/Video.cc \
-    src/ui/VideoConfiguration.cc \
     src/ui/Planner.cc \
-    src/ui/PlannerConfiguration.cc
 
 #
 # Unit Test specific configuration goes here (requires full debug build with all plugins)

@@ -1,26 +1,20 @@
-/****************************************************************************
- *
- *   (c) 2009-2018 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
- *
- * QGroundControl is licensed according to the terms in the file
- * COPYING.md in the root of the source code directory.
- *
- ****************************************************************************/
-
-
 #pragma once
 
-#include "MultiVehicleDockWidget.h"
+#include "QGCDockWidget.h"
+#include "Vehicle.h"
 
-class Video : public MultiVehicleDockWidget
+namespace Ui {
+    class Video;
+}
+
+class Video : public QGCDockWidget
 {
     Q_OBJECT
 
 public:
     explicit Video(const QString& title, QAction* action, QWidget *parent = 0);
+    ~Video();
 
-protected:
-    // Override from MultiVehicleDockWidget
-    virtual QWidget* _newVehicleWidget(Vehicle* vehicle, QWidget* parent);
+private:
+    Ui::Video *ui;
 };
-
