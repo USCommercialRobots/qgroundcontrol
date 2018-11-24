@@ -199,11 +199,9 @@ bool PX4FirmwarePlugin::setFlightMode(const QString& flightMode, uint8_t* base_m
 {
     *base_mode = 0;
     *custom_mode = 0;
-    qDebug() << "in: " << flightMode;
 
     bool found = false;
     foreach (const FlightModeInfo_t& info, _flightModeInfoList) {
-        qDebug() << "out: " << *info.name;
         if (flightMode.compare(info.name, Qt::CaseInsensitive) == 0) {
             union px4_custom_mode px4_mode;
 

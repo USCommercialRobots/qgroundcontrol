@@ -11,10 +11,6 @@
 #include <QLabel>
 #include <string>
 
-QWidget* vehiclesList;
-MultiVehicleManager* _multiVehicleManager;
-int _ids[1000];
-int _count;
 
 const unsigned int Parameters::updateInterval = 1000U; // 1 second
 
@@ -22,6 +18,7 @@ Parameters::Parameters(const QString& title, QAction* action, QWidget *parent) :
     QGCDockWidget(title, action, parent),
     ui(new Ui::Parameters)
 {
+    _count = 0;
     ui->setupUi(this);
     _multiVehicleManager = qgcApp()->toolbox()->multiVehicleManager();
 

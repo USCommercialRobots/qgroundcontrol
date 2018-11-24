@@ -218,11 +218,13 @@ QGCView {
             if (_activeVehicle && _activeVehicle.armed && _activeVehicle.flightMode === _activeVehicle.missionFlightMode) {
                 _qgcView.showDialog(activeMissionUploadDialogComponent, qsTr("Plan Upload"), _qgcView.showDialogDefaultWidth, StandardButton.Cancel)
             } else {
+                console.log("!! senda!");
                 sendToVehicle()
             }
         }
 
         function loadFromSelectedFile() {
+            console.log("!!! loadFromFile js");
             fileDialog.title =          qsTr("Select Plan File")
             fileDialog.planFiles =      true
             fileDialog.selectExisting = true
@@ -1065,10 +1067,12 @@ QGCView {
                     Layout.fillWidth:   true
                     enabled:            !masterController.syncInProgress
                     onClicked: {
+                        console.log("!!! clicked");
                         dropPanel.hide()
                         if (masterController.dirty) {
                             _qgcView.showDialog(syncLoadFromFileOverwrite, columnHolder._overwriteText, _qgcView.showDialogDefaultWidth, StandardButton.Yes | StandardButton.Cancel)
                         } else {
+                            console.log("!!! clicked - sending");
                             masterController.loadFromSelectedFile()
                         }
                     }

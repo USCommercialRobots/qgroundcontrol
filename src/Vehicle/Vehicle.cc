@@ -3680,6 +3680,7 @@ void Vehicle::forceInitialPlanRequestComplete(void)
 
 void Vehicle::sendPlan(QString planFile)
 {
+    qDebug() << " planfile " << planFile;
     PlanMasterController::sendPlanToVehicle(this, planFile);
 }
 

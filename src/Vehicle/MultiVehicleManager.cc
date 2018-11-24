@@ -258,6 +258,7 @@ void MultiVehicleManager::_deleteVehiclePhase2(void)
 
 void MultiVehicleManager::setActiveVehicle(Vehicle* vehicle)
 {
+    qDebug() << "setActiveVehicle" << vehicle->id();
     qCDebug(MultiVehicleManagerLog) << "setActiveVehicle" << vehicle;
 
     if (vehicle != _activeVehicle) {

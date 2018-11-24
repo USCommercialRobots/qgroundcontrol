@@ -23,6 +23,10 @@ public slots:
 
 protected:
     QTimer updateTimer;
+    QWidget* vehiclesList;
+    MultiVehicleManager* _multiVehicleManager;
+    int _ids[1000];
+    int _count;
     static const unsigned int updateInterval;
 
 private slots:

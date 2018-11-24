@@ -233,6 +233,7 @@ void MissionController::_warnIfTerrainFrameUsed(void)
 
 void MissionController::sendToVehicle(void)
 {
+    qDebug() << "!!! Sendaaa2";
     if (_masterController->offline()) {
         qCWarning(MissionControllerLog) << "MissionControllerLog::sendToVehicle called while offline";
     } else if (syncInProgress()) {
@@ -241,10 +242,12 @@ void MissionController::sendToVehicle(void)
         qCDebug(MissionControllerLog) << "MissionControllerLog::sendToVehicle";
         _warnIfTerrainFrameUsed();
         if (_visualItems->count() == 1) {
+            qDebug() << "!!! not ina";
             // This prevents us from sending a possibly bogus home position to the vehicle
             QmlObjectListModel emptyModel;
             sendItemsToVehicle(_managerVehicle, &emptyModel);
         } else {
+            qDebug() << "!!! ina";
             sendItemsToVehicle(_managerVehicle, _visualItems);
         }
         setDirty(false);
@@ -820,6 +823,7 @@ bool MissionController::_loadJsonMissionFileV2(const QJsonObject& json, QmlObjec
 
 bool MissionController::_loadItemsFromJson(const QJsonObject& json, QmlObjectListModel* visualItems, QString& errorString)
 {
+    qDebug() << "!!! jsona";
     // V1 file format has no file type key and version key is string. Convert to new format.
     if (!json.contains(JsonHelper::jsonFileTypeKey)) {
         json[JsonHelper::jsonFileTypeKey] = _jsonFileTypeValue;
@@ -842,6 +846,7 @@ bool MissionController::_loadItemsFromJson(const QJsonObject& json, QmlObjectLis
 
 bool MissionController::_loadTextMissionFile(QTextStream& stream, QmlObjectListModel* visualItems, QString& errorString)
 {
+    qDebug() << "!!! texta";
     bool firstItem = true;
     bool plannedHomePositionInFile = false;
 
@@ -920,6 +925,7 @@ void MissionController::_initLoadedVisualItems(QmlObjectListModel* loadedVisualI
 
 bool MissionController::load(const QJsonObject& json, QString& errorString)
 {
+    qDebug() << "!!! maina loada";
     QString errorStr;
     QString errorMessage = tr("Mission: %1");
     QmlObjectListModel* loadedVisualItems = new QmlObjectListModel(this);
@@ -935,6 +941,7 @@ bool MissionController::load(const QJsonObject& json, QString& errorString)
 
 bool MissionController::loadJsonFile(QFile& file, QString& errorString)
 {
+    qDebug() << "!!! jsona loada";
     QString         errorStr;
     QString         errorMessage = tr("Mission: %1");
     QJsonDocument   jsonDoc;
@@ -959,6 +966,7 @@ bool MissionController::loadJsonFile(QFile& file, QString& errorString)
 
 bool MissionController::loadTextFile(QFile& file, QString& errorString)
 {
+    qDebug() << "!!! texta loada";
     QString     errorStr;
     QString     errorMessage = tr("Mission: %1");
     QByteArray  bytes = file.readAll();
