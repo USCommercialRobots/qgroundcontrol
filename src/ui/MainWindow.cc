@@ -46,6 +46,7 @@
 #include "Linecharts.h"
 #include "QGCUASFileViewMulti.h"
 #include "CustomCommandWidget.h"
+#include "ParametersWidget.h"
 #include "QGCDockWidget.h"
 #include "HILDockWidget.h"
 #include "Parameters.h"
@@ -352,7 +353,8 @@ bool MainWindow::_createInnerDockWidget(const QString& widgetName)
                 widget = new Linecharts(widgetName, action, _mavLinkDecoderInstance(), this);
                 break;
             case PARAMETERS:
-                widget = new Parameters(widgetName, action, this);
+                widget = new ParametersWidget(widgetName, action, this);
+//                widget = new Parameters(widgetName, action, this);
                 break;
             case VIDEO:
                 widget = new Video(widgetName, action, this);
