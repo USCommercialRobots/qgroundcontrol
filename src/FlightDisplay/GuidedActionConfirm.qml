@@ -36,12 +36,12 @@ Rectangle {
     property bool   hideTrigger:        false
 
     property real _margins:         ScreenTools.defaultFontPixelWidth
-    property bool _emergencyAction: action === guidedController.actionEmergencyStop
+//    property bool _emergencyAction: action === guidedController.actionEmergencyStop
 
     onHideTriggerChanged: {
         if (hideTrigger) {
             hideTrigger = false
-            altitudeSlider.visible = false
+//            altitudeSlider.visible = false
             visibleTimer.stop()
             visible = false
         }

@@ -474,6 +474,7 @@ QGCView {
         property bool vehicleInMissionFlightMode:   _activeVehicle ? (_activeVehicle.flightMode === _activeVehicle.missionFlightMode) : false
         property bool promptForMissionRemove:       false
 
+
         // ssl
 
         MultiVehicleListPlannerWidget {
@@ -514,8 +515,6 @@ QGCView {
 
             /// Close all dialogs
             function closeAll() {
-                mainWindow.enableToolbar()
-                rootLoader.sourceComponent  = null
                 guidedActionConfirm.visible = false
                 guidedActionList.visible    = false
                 altitudeSlider.visible      = false
@@ -707,6 +706,17 @@ QGCView {
                 anchors.top: parent.top
                 anchors.margins: 25
                 width: 150
+                enabled:            !masterController.syncInProgress
+                onClicked: {
+                    console.log("!!! clicked");
+
+                    if (masterController.dirty) {
+                        _qgcView.showDialog(syncLoadFromFileOverwrite, columnHolder._overwriteText, _qgcView.showDialogDefaultWidth, StandardButton.Yes | StandardButton.Cancel)
+                    } else {
+                        console.log("!!! clicked - sending");
+                        masterController.loadFromSelectedFile()
+                    }
+                }
             }
 
             QGCButton {

@@ -90,6 +90,62 @@ Item {
                         onClicked:  _vehicle.armed = false
                     }
 
+                    Timer {
+                        id: delayClear
+                        interval: 2000; running: false; repeat: false
+                        onTriggered: {
+                            console.log(QGroundControl.multiVehicleManager.activeVehicle.id)
+                            masterController.removeAllFromVehicle()
+                        }
+                    }
+
+                    Timer {
+                        id: delayUpload
+                        interval: 2000; running: false; repeat: false
+                        onTriggered: {
+                            console.log(QGroundControl.multiVehicleManager.activeVehicle.id)
+                            masterController.upload()
+                        }
+                    }
+
+                    QGCButton {
+                        text:               qsTr("Clear Mission")
+                        Layout.fillWidth:   true
+                        Layout.columnSpan:  2
+                        enabled:            !masterController.offline && !masterController.syncInProgress
+                        visible:            !QGroundControl.corePlugin.options.disableVehicleConnection
+                        onClicked: {
+                            console.log("clear clicked")
+                            console.log(_vehicle.id)
+                            console.log(QGroundControl.multiVehicleManager.activeVehicle.id)
+                            if (delayClear.running) {
+                                console.error("nested calls to setTimeout are not supported!");
+                                return;
+                            }
+                            QGroundControl.multiVehicleManager.activeVehicle = _vehicle
+                            delayClear.start();
+
+                        }
+                    }
+
+                    QGCButton {
+                        text:               qsTr("Upload")
+                        Layout.fillWidth:   true
+                        enabled:            !masterController.offline && !masterController.syncInProgress && _visualItems.count > 1
+                        visible:            !QGroundControl.corePlugin.options.disableVehicleConnection
+                        onClicked: {
+                            console.log("upload clicked")
+                            console.log(_vehicle.id)
+                            console.log(QGroundControl.multiVehicleManager.activeVehicle.id)
+                            if (delayUpload.running) {
+                                console.error("nested calls to setTimeout are not supported!");
+                                return;
+                            }
+                            QGroundControl.multiVehicleManager.activeVehicle = _vehicle
+                            delayUpload.start();
+                        }
+                    }
+
                 } // Grid
             } // ColumnLayout
         } // delegate - Rectangle
