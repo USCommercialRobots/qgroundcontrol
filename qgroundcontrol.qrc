@@ -156,6 +156,7 @@
         <file alias="QGroundControl/FlightDisplay/GuidedActionsController.qml">src/FlightDisplay/GuidedActionsController.qml</file>
         <file alias="QGroundControl/FlightDisplay/GuidedAltitudeSlider.qml">src/FlightDisplay/GuidedAltitudeSlider.qml</file>
         <file alias="QGroundControl/FlightDisplay/MultiVehicleList.qml">src/FlightDisplay/MultiVehicleList.qml</file>
+        <file alias="QGroundControl/FlightDisplay/MultiVehicleListWidget.qml">src/FlightDisplay/MultiVehicleListWidget.qml</file>
         <file alias="QGroundControl/FlightDisplay/PreFlightBatteryCheck.qml">src/FlightDisplay/PreFlightBatteryCheck.qml</file>
         <file alias="QGroundControl/FlightDisplay/BuiltInPreFlightCheckModel.qml">src/FlightDisplay/BuiltInPreFlightCheckModel.qml</file>
         <file alias="QGroundControl/FlightDisplay/PreFlightGPSCheck.qml">src/FlightDisplay/PreFlightGPSCheck.qml</file>
@@ -206,6 +207,7 @@
         <file alias="VideoPageWidget.qml">src/FlightMap/Widgets/VideoPageWidget.qml</file>
         <file alias="VirtualJoystick.qml">src/FlightDisplay/VirtualJoystick.qml</file>
         <file alias="ParametersWidget.qml">src/ViewWidgets/ParametersWidget.qml</file>
+        <file alias="PlannerWidget.qml">src/ViewWidgets/PlannerWidget.qml</file>
     </qresource>
     <qresource prefix="/json">
         <file alias="CameraCalc.FactMetaData.json">src/MissionManager/CameraCalc.FactMetaData.json</file>

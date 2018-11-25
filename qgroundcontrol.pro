@@ -413,7 +413,9 @@ HEADERS += \
     src/ui/Video.h \
     src/ui/Planner.h \
     src/ViewWidgets/ParametersWidget.h \
-    src/ViewWidgets/ParametersWidgetController.h
+    src/ViewWidgets/ParametersWidgetController.h \
+    src/ViewWidgets/PlannerWidget.h \
+    src/ViewWidgets/PlannerWidgetController.h
 
 SOURCES += \
     src/api/QGCCorePlugin.cc \
@@ -425,7 +427,9 @@ SOURCES += \
     src/ui/Video.cc \
     src/ui/Planner.cc \
     src/ViewWidgets/ParametersWidget.cc \
-    src/ViewWidgets/ParametersWidgetController.cc
+    src/ViewWidgets/ParametersWidgetController.cc \
+    src/ViewWidgets/PlannerWidget.cc \
+    src/ViewWidgets/PlannerWidgetController.cc
 
 #
 # Unit Test specific configuration goes here (requires full debug build with all plugins)
