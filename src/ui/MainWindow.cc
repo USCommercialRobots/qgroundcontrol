@@ -47,6 +47,7 @@
 #include "QGCUASFileViewMulti.h"
 #include "CustomCommandWidget.h"
 #include "ParametersWidget.h"
+#include "PlannerWidget.h"
 #include "QGCDockWidget.h"
 #include "HILDockWidget.h"
 #include "Parameters.h"
