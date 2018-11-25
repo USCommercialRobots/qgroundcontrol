@@ -360,7 +360,8 @@ bool MainWindow::_createInnerDockWidget(const QString& widgetName)
                 widget = new Video(widgetName, action, this);
                 break;
             case PLANNER:
-                widget = new Planner(widgetName, action, this);
+                widget = new PlannerWidget(widgetName, action, this);
+                // widget = new Planner(widgetName, action, this);
                 break;
         }
 
