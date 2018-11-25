@@ -55,6 +55,7 @@
         <file alias="MotorComponent.qml">src/AutoPilotPlugins/Common/MotorComponent.qml</file>
         <file alias="OfflineMap.qml">src/QtLocationPlugin/QMLControl/OfflineMap.qml</file>
         <file alias="PlanView.qml">src/PlanView/PlanView.qml</file>
+        <file alias="PlanViewWidget.qml">src/PlanView/PlanViewWidget.qml</file>
         <file alias="PX4FlowSensor.qml">src/VehicleSetup/PX4FlowSensor.qml</file>
         <file alias="QGCInstrumentWidget.qml">src/FlightMap/Widgets/QGCInstrumentWidget.qml</file>
         <file alias="QGCInstrumentWidgetAlternate.qml">src/FlightMap/Widgets/QGCInstrumentWidgetAlternate.qml</file>
@@ -157,6 +158,7 @@
         <file alias="QGroundControl/FlightDisplay/GuidedAltitudeSlider.qml">src/FlightDisplay/GuidedAltitudeSlider.qml</file>
         <file alias="QGroundControl/FlightDisplay/MultiVehicleList.qml">src/FlightDisplay/MultiVehicleList.qml</file>
         <file alias="QGroundControl/FlightDisplay/MultiVehicleListWidget.qml">src/FlightDisplay/MultiVehicleListWidget.qml</file>
+        <file alias="QGroundControl/FlightDisplay/MultiVehicleListPlannerWidget.qml">src/FlightDisplay/MultiVehicleListPlannerWidget.qml</file>
         <file alias="QGroundControl/FlightDisplay/PreFlightBatteryCheck.qml">src/FlightDisplay/PreFlightBatteryCheck.qml</file>
         <file alias="QGroundControl/FlightDisplay/BuiltInPreFlightCheckModel.qml">src/FlightDisplay/BuiltInPreFlightCheckModel.qml</file>
         <file alias="QGroundControl/FlightDisplay/PreFlightGPSCheck.qml">src/FlightDisplay/PreFlightGPSCheck.qml</file>

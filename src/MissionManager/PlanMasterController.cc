@@ -116,7 +116,7 @@ void PlanMasterController::_activeVehicleChanged(Vehicle* activeVehicle)
 
 
     bool newOffline = false;
-    qDebug() << "!!! PMC change before newOffline = " << newOffline;
+    
     if (activeVehicle == nullptr) {
         // Since there is no longer an active vehicle we use the offline controller vehicle as the manager vehicle
         _managerVehicle = _controllerVehicle;
@@ -138,7 +138,7 @@ void PlanMasterController::_activeVehicleChanged(Vehicle* activeVehicle)
         connect(_managerVehicle->geoFenceManager(),     &GeoFenceManager::sendComplete,             this, &PlanMasterController::_sendGeoFenceComplete);
         connect(_managerVehicle->rallyPointManager(),   &RallyPointManager::sendComplete,           this, &PlanMasterController::_sendRallyPointsComplete);
     }
-    qDebug() << "!!! PMC change after newOffline = " << newOffline;
+    
 
     _missionController.managerVehicleChanged(_managerVehicle);
     _geoFenceController.managerVehicleChanged(_managerVehicle);
@@ -151,7 +151,7 @@ void PlanMasterController::_activeVehicleChanged(Vehicle* activeVehicle)
     emit dirtyChanged(dirty());
     emit offlineChanged(offline());
 
-    qDebug() << "!!! PMC change _offline = " << _offline;
+    
 
     if (!_flyView) {
         if (!offline()) {
@@ -164,16 +164,16 @@ void PlanMasterController::_activeVehicleChanged(Vehicle* activeVehicle)
             }
         }
     } else {
-        qDebug() << "!!! PMC change else offline() = " << offline();
+        
         if (offline()) {
             // No more active vehicle, clear mission
             qCDebug(PlanMasterControllerLog) << "_activeVehicleChanged: Fly view is offline clearing plan";
-            qDebug() << "_activeVehicleChanged: Fly view is offline clearing plan";
+            
             removeAll();
         } else {
             // Fly view has changed to a new active vehicle, update to show correct mission
             qCDebug(PlanMasterControllerLog) << "_activeVehicleChanged: Fly view is online so loading from manager";
-            qDebug() << "_activeVehicleChanged: Fly view is online so loading from manager";
+            
             _showPlanFromManagerVehicle();
         }
     }
@@ -282,8 +282,6 @@ void PlanMasterController::sendToVehicle(void)
         qgcApp()->showMessage(tr("Upload not supported on high latency links."));
         return;
     }
-
-    qDebug() << "!!! PMC send offline() = " << offline();
 
     if (offline()) {
         qCWarning(PlanMasterControllerLog) << "PlanMasterController::sendToVehicle called while offline";

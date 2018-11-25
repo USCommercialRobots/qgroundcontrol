@@ -27,10 +27,6 @@ import QGroundControl.Controllers       1.0
 import QGroundControl.ShapeFileHelper   1.0
 import QGroundControl.Airspace          1.0
 import QGroundControl.Airmap            1.0
-import QGroundControl.Vehicle           1.0
-import QGroundControl.FactSystem        1.0
-import QGroundControl.FlightDisplay     1.0
-import QGroundControl.FlightMap         1.0
 
 /// Mission Editor
 
@@ -444,125 +440,9 @@ QGCView {
         }
     }
 
-
-
-    QGCViewPanel {
-        id:             root
-        anchors.top:    parent.top
-        anchors.left:  parent.left
-        width:      parent.width - 400
-        height:     parent.height
-        anchors.margins: 25
-
-        // MultiVehicleList's global variables
-
-        property alias  guidedController:   guidedActionsController
-
-        property real   _margins:               ScreenTools.defaultFontPixelWidth / 2
-        property alias  _guidedController:      guidedActionsController
-        property alias  _altitudeSlider:        altitudeSlider
-
-        Connections {
-            target:                     _missionController
-            onResumeMissionUploadFail:  guidedActionsController.confirmAction(guidedActionsController.actionResumeMissionUploadFail)
-        }
-
-        // The following code is used to track vehicle states such that we prompt to remove mission from vehicle when mission completes
-
-        property bool vehicleArmed:                 _activeVehicle ? _activeVehicle.armed : true // true here prevents pop up from showing during shutdown
-        property bool vehicleWasArmed:              false
-        property bool vehicleInMissionFlightMode:   _activeVehicle ? (_activeVehicle.flightMode === _activeVehicle.missionFlightMode) : false
-        property bool promptForMissionRemove:       false
-
-        // ssl
-
-        MultiVehicleListPlannerWidget {
-            anchors.margins:            _margins
-            anchors.top:                parent.top
-            anchors.left:               parent.left
-            anchors.bottom:             parent.bottom
-            width:                      350
-            z:                          parent.z + 4
-            guidedActionsController:    _guidedController
-        }
-
-        GuidedActionsController {
-            id:                 guidedActionsController
-            missionController:  _missionController
-            confirmDialog:      guidedActionConfirm
-            actionList:         guidedActionList
-            altitudeSlider:     _altitudeSlider
-            z:                  _flightVideoPipControl.z + 1
-
-            onShowStartMissionChanged: {
-                if (showStartMission) {
-                    confirmAction(actionStartMission)
-                }
-            }
-
-            onShowContinueMissionChanged: {
-                if (showContinueMission) {
-                    confirmAction(actionContinueMission)
-                }
-            }
-
-            onShowLandAbortChanged: {
-                if (showLandAbort) {
-                    confirmAction(actionLandAbort)
-                }
-            }
-
-            /// Close all dialogs
-            function closeAll() {
-                mainWindow.enableToolbar()
-                rootLoader.sourceComponent  = null
-                guidedActionConfirm.visible = false
-                guidedActionList.visible    = false
-                altitudeSlider.visible      = false
-            }
-        }
-
-        GuidedActionConfirm {
-            id:                         guidedActionConfirm
-            anchors.margins:            _margins
-            anchors.bottom:             parent.bottom
-            anchors.horizontalCenter:   parent.horizontalCenter
-            guidedController:           _guidedController
-            altitudeSlider:             _altitudeSlider
-        }
-
-        GuidedActionList {
-            id:                         guidedActionList
-            anchors.margins:            _margins
-            anchors.bottom:             parent.bottom
-            anchors.horizontalCenter:   parent.horizontalCenter
-            guidedController:           _guidedController
-        }
-
-        //-- Altitude slider
-        GuidedAltitudeSlider {
-            id:                 altitudeSlider
-            anchors.margins:    _margins
-            anchors.right:      parent.right
-            anchors.topMargin:  ScreenTools.toolbarHeight + _margins
-            anchors.top:        parent.top
-            anchors.bottom:     parent.bottom
-            z:                  _guidedController.z
-            radius:             ScreenTools.defaultFontPixelWidth / 2
-            width:              ScreenTools.defaultFontPixelWidth * 10
-            color:              qgcPal.window
-            visible:            false
-        }
-    }
-
-
     QGCViewPanel {
         id:             panel
-        anchors.top:    parent.top
-        anchors.right:  parent.right
-        width:      parent.width - 400
-        height:     parent.height
-
+        anchors.fill:   parent
 
         FlightMap {
             id:                         editorMap
@@ -700,24 +580,6 @@ QGCView {
                 }
             }
 
-            QGCButton {
-                id: preloadMissionButton
-                text:       "Preload Mission"
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.margins: 25
-                width: 150
-            }
-
-            QGCButton {
-                text:       "Preload Geofence"
-                anchors.left: parent.left
-                anchors.top: preloadMissionButton.bottom
-                anchors.margins: 25
-                width: 150
-            }
-
-
             ToolStrip {
                 id:                 toolStrip
                 anchors.leftMargin: ScreenTools.defaultFontPixelWidth
@@ -733,7 +595,6 @@ QGCView {
                 buttonEnabled:      [ !masterController.syncInProgress, true, true, true, true, true, true ]
                 buttonVisible:      [ true, true, _waypointsOnlyMode, true, true, _showZoom, _showZoom ]
                 maxHeight:          mapScale.y - toolStrip.y
-                visible: false
 
                 property bool _showZoom: !ScreenTools.isMobile
 
@@ -1242,7 +1103,7 @@ QGCView {
                 }
 
                 QGCButton {
-                    text:               qsTr("Save Mission Waypoints As KML...")
+                    text:               qsTr("Save Mission Waypoints As KML...")                    
                     Layout.columnSpan:  2
                     enabled:            !masterController.syncInProgress && _visualItems.count > 1
                     onClicked: {
