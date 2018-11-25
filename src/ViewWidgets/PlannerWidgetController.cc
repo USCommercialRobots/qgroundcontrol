@@ -8,7 +8,7 @@
  ****************************************************************************/
 
 
-#include "ParametersWidgetController.h"
+#include "PlannerWidgetController.h"
 #include "MultiVehicleManager.h"
 #include "QGCMAVLink.h"
 #include "QGCQFileDialog.h"
@@ -18,9 +18,9 @@
 #include <QSettings>
 #include <QUrl>
 
-const char* ParametersWidgetController::_settingsKey = "CustomCommand.QmlFile";
+const char* PlannerWidgetController::_settingsKey = "CustomCommand.QmlFile";
 
-ParametersWidgetController::ParametersWidgetController(void) :
+PlannerWidgetController::PlannerWidgetController(void) :
     _vehicle(NULL)
 {
     if(qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()) {
@@ -30,7 +30,7 @@ ParametersWidgetController::ParametersWidgetController(void) :
     _customQmlFile = settings.value(_settingsKey).toString();
 }
 
-void ParametersWidgetController::sendCommand(int commandId, QVariant componentId, QVariant confirm, QVariant param1, QVariant param2, QVariant param3, QVariant param4, QVariant param5, QVariant param6, QVariant param7)
+void PlannerWidgetController::sendCommand(int commandId, QVariant componentId, QVariant confirm, QVariant param1, QVariant param2, QVariant param3, QVariant param4, QVariant param5, QVariant param6, QVariant param7)
 {
     Q_UNUSED(confirm);
 
@@ -42,7 +42,7 @@ void ParametersWidgetController::sendCommand(int commandId, QVariant componentId
     }
 }
 
-void ParametersWidgetController::selectQmlFile(void)
+void PlannerWidgetController::selectQmlFile(void)
 {
     QSettings settings;
     QString qmlFile = QGCQFileDialog::getOpenFileName(NULL, tr("Select custom Qml file"), QString(), tr("Qml files (*.qml)"));
@@ -57,7 +57,7 @@ void ParametersWidgetController::selectQmlFile(void)
     emit customQmlFileChanged(_customQmlFile);
 }
 
-void ParametersWidgetController::clearQmlFile(void)
+void PlannerWidgetController::clearQmlFile(void)
 {
     _customQmlFile.clear();
     QSettings settings;

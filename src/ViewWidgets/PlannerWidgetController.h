@@ -15,12 +15,12 @@
 #include "AutoPilotPlugin.h"
 #include "FactPanelController.h"
 
-class ParametersWidgetController : public FactPanelController
+class PlannerWidgetController : public FactPanelController
 {
 	Q_OBJECT
 	
 public:
-	ParametersWidgetController(void);
+	PlannerWidgetController(void);
     
     Q_PROPERTY(QString customQmlFile MEMBER _customQmlFile NOTIFY customQmlFileChanged)
 	
