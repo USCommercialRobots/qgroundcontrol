@@ -54,6 +54,13 @@ QGCView {
     readonly property var   _defaultVehicleCoordinate:  QtPositioning.coordinate(37.803784, -122.462276)
     readonly property bool  _waypointsOnlyMode:         QGroundControl.corePlugin.options.missionWaypointsOnly
 
+    // MultiVehicleList's global variables
+    property alias  guidedController:   guidedActionsController
+    property real   _margins:               ScreenTools.defaultFontPixelWidth / 2
+    property alias  _altitudeSlider:        altitudeSlider
+    property alias  _guidedController:      guidedActionsController //mine
+
+
     property bool   _airspaceEnabled:                    QGroundControl.airmapSupported ? (QGroundControl.settingsManager.airMapSettings.enableAirMap.rawValue && QGroundControl.airspaceManager.connected): false
     property var    _planMasterController:              masterController
     property var    _missionController:                 _planMasterController.missionController
@@ -75,8 +82,8 @@ QGCView {
     readonly property string    _armedVehicleUploadPrompt:  qsTr("Vehicle is currently armed. Do you want to upload the mission to the vehicle?")
 
     Component.onCompleted: {
-        toolbar.planMasterController =  Qt.binding(function () { return _planMasterController })
-        toolbar.currentMissionItem =    Qt.binding(function () { return _missionController.currentPlanViewItem })
+//        toolbar.planMasterController =  Qt.binding(function () { return _planMasterController })
+//        toolbar.currentMissionItem =    Qt.binding(function () { return _missionController.currentPlanViewItem })
     }
 
     function addComplexItem(complexItemName) {
@@ -454,14 +461,6 @@ QGCView {
         height:     parent.height
         anchors.margins: 25
 
-        // MultiVehicleList's global variables
-
-        property alias  guidedController:   guidedActionsController
-
-        property real   _margins:               ScreenTools.defaultFontPixelWidth / 2
-        property alias  _guidedController:      guidedActionsController
-        property alias  _altitudeSlider:        altitudeSlider
-
         Connections {
             target:                     _missionController
             onResumeMissionUploadFail:  guidedActionsController.confirmAction(guidedActionsController.actionResumeMissionUploadFail)
@@ -493,13 +492,13 @@ QGCView {
             confirmDialog:      guidedActionConfirm
             actionList:         guidedActionList
             altitudeSlider:     _altitudeSlider
-            z:                  _flightVideoPipControl.z + 1
+            z:                  parent.z + 1
 
-            onShowStartMissionChanged: {
-                if (showStartMission) {
-                    confirmAction(actionStartMission)
-                }
-            }
+//            onShowStartMissionChanged: {
+//                if (showStartMission) {
+//                    confirmAction(actionStartMission)
+//                }
+//            }
 
             onShowContinueMissionChanged: {
                 if (showContinueMission) {
@@ -543,7 +542,7 @@ QGCView {
             id:                 altitudeSlider
             anchors.margins:    _margins
             anchors.right:      parent.right
-            anchors.topMargin:  ScreenTools.toolbarHeight + _margins
+//            anchors.topMargin:  ScreenTools.toolbarHeight + _margins
             anchors.top:        parent.top
             anchors.bottom:     parent.bottom
             z:                  _guidedController.z
@@ -699,33 +698,33 @@ QGCView {
                 }
             }
 
-            QGCButton {
-                id: preloadMissionButton
-                text:       "Preload Mission"
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.margins: 25
-                width: 150
-                enabled:            !masterController.syncInProgress
-                onClicked: {
-                    console.log("!!! clicked");
+//            QGCButton {
+//                id: preloadMissionButton
+//                text:       "Preload Mission"
+//                anchors.left: parent.left
+//                anchors.top: parent.top
+//                anchors.margins: 25
+//                width: 150
+//                enabled:            !masterController.syncInProgress
+//                onClicked: {
+//                    console.log("!!! clicked");
 
-                    if (masterController.dirty) {
-                        _qgcView.showDialog(syncLoadFromFileOverwrite, columnHolder._overwriteText, _qgcView.showDialogDefaultWidth, StandardButton.Yes | StandardButton.Cancel)
-                    } else {
-                        console.log("!!! clicked - sending");
-                        masterController.loadFromSelectedFile()
-                    }
-                }
-            }
+//                    if (masterController.dirty) {
+//                        _qgcView.showDialog(syncLoadFromFileOverwrite, columnHolder._overwriteText, _qgcView.showDialogDefaultWidth, StandardButton.Yes | StandardButton.Cancel)
+//                    } else {
+//                        console.log("!!! clicked - sending");
+//                        masterController.loadFromSelectedFile()
+//                    }
+//                }
+//            }
 
-            QGCButton {
-                text:       "Preload Geofence"
-                anchors.left: parent.left
-                anchors.top: preloadMissionButton.bottom
-                anchors.margins: 25
-                width: 150
-            }
+//            QGCButton {
+//                text:       "Preload Geofence"
+//                anchors.left: parent.left
+//                anchors.top: preloadMissionButton.bottom
+//                anchors.margins: 25
+//                width: 150
+//            }
 
 
             ToolStrip {
@@ -743,7 +742,7 @@ QGCView {
                 buttonEnabled:      [ !masterController.syncInProgress, true, true, true, true, true, true ]
                 buttonVisible:      [ true, true, _waypointsOnlyMode, true, true, _showZoom, _showZoom ]
                 maxHeight:          mapScale.y - toolStrip.y
-                visible: false
+                visible: true
 
                 property bool _showZoom: !ScreenTools.isMobile
 
